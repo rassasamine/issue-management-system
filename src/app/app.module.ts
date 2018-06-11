@@ -9,20 +9,28 @@ import { ChatComponent } from './chat/chat.component';
 
 import { IssuesModule } from './issues/issues.module';
 
+import { AuthService } from './shared/auth.service';
+import { UsersService } from './shared/users.service';
+import { IssuesService } from './shared/issues.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     FeedComponent,
-    ChatComponent
+    ChatComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     IssuesModule
   ],
-  providers: [],
+  providers: [
+    //  WebSocketService
+    IssuesService,
+    UsersService,
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

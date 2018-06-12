@@ -3,7 +3,9 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { User } from '../../domain/User';
 import { Issue } from '../../domain/Issue';
-import { Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { Comment } from '../../domain/Comment';
+
+import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { AuthService } from './../../shared/auth.service';
 import { IssuesService } from '../../shared/issues.service';
 import { UsersService } from '../../shared/users.service';
@@ -15,8 +17,8 @@ import { forkJoin } from 'rxjs';
   styleUrls: ['./issue-edit.component.css']
 })
 export class IssueEditComponent implements OnInit {
-  users: User[]; // drop down list of users
   public issueForm: FormGroup;
+  users: User[]; // drop down list of users
   issue: Issue;
   comment: string;
 
@@ -94,9 +96,30 @@ export class IssueEditComponent implements OnInit {
   }
 
   onSave() {
+    console.log(this.issueForm.value);
     this.issuesService.update(this.issueForm.value).subscribe(res => {
       this.reset();
     });
+  }
+
+  onComment(f: NgForm) {
+    const newComment = new Comment();
+    newComment.byUser = this.authService.currentUser.id;
+    newComment.forIssue = this.issue.id;
+    newComment.text = this.comment;
+    console.log('comment', JSON.stringify(this.comment));
+    this.issuesService.addComment(this.issue.id, newComment).subscribe(res => {
+        console.log('saved comment');
+        this.issue.comments.push(
+          {
+            byUserName: this.authService.currentUser.name,
+            comment: newComment
+          });
+    });
+  }
+
+  compareUser(user1, user2): boolean {
+    return user1 && user2 ? user1.id === user2.id : user1 === user2;
   }
 
 }

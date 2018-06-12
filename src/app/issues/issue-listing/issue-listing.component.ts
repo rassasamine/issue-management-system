@@ -14,7 +14,6 @@ import { UsersService } from '../../shared/users.service';
   styleUrls: ['./issue-listing.component.css']
 })
 export class IssueListingComponent implements OnInit {
-
   issues$: Observable<Array<Issue>>;
 
   constructor(private router: Router,
@@ -35,7 +34,8 @@ export class IssueListingComponent implements OnInit {
 
   showUserInfo(user: User) {
     this.usersService.get(user.id).subscribe(res => {
-        user.email = res.email;
+      //  update and set email of user
+      user.email = res.email;
     });
  }
 }

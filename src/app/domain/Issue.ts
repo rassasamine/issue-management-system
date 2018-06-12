@@ -1,4 +1,4 @@
-import { CommentInfo } from './CommentInfo';
+import { CommentInfo } from './Comment';
 import { User } from './User';
 
 export class Issue {
@@ -7,5 +7,5 @@ export class Issue {
     description: string;
     assignedTo: User;
     created: Date;
-   comments?: CommentInfo[];
+    comments?: CommentInfo[];
 }

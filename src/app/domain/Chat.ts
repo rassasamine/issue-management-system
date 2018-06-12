@@ -1,5 +1,7 @@
+import { User } from './User';
+
 export class Chat {
     message: string;
-    sender: string;
+    sender: User;
     created: Date;
 }

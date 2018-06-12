@@ -1,35 +1,47 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
 import { Issue } from '../domain/Issue';
+import { Comment } from './../domain/Comment';
 
 @Injectable()
 export class IssuesService {
   constructor(private http: HttpClient) { }
 
   public getAll(): Observable<Array<Issue>> {
-    return this.http.get<Array<Issue>>('/assets/issues.json');
+    return this.http.get<Array<Issue>>('http://localhost:8082/ims-issues/resources/issues', {
+        headers: new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('token')}`)
+    });
   }
 
   public get(id: number): Observable<any> {
-    return this.http.get('/assets/issue.json');
- }
+    return this.http.get(`http://localhost:8082/ims-issues/resources/issues/${id}`);
+  }
 
   public getComments(id: number): Observable<any> {
-    return this.http.get(`/assets/comments.json/${id}`);
+    return this.http.get(`http://localhost:8083/ims-comments/resources/comments/${id}`);
   }
 
- // by me xD
-  public add(issue: any): Observable<any> {
-    return this.http.post('/assets/issues.json', issue);
+  public addComment(id: number, comment: Comment): Observable<any> {
+    return this.http.post(`http://localhost:8083/ims-comments/resources/comments/${id}`, comment ,
+      { responseType: 'text' }
+    );
   }
 
-  public delete(issue: any): Observable<any> {
-    return this.http.delete('/assets/issue.json', issue);
+  public add(issue: Issue): Observable<any> {
+    return this.http.post('http://localhost:8082/ims-issues/resources/issues', issue,
+       { responseType: 'text' }
+    );
   }
 
-  public update(issue: any): Observable<any> {
-   return this.http.post('/assets/issue.json', issue);
+  public update(issue: Issue): Observable<any> {
+    return this.http.put(`http://localhost:8082/ims-issues/resources/issues/${issue.id}`, issue);
   }
 
+  public delete(id: number): Observable<any> {
+    return this.http.delete(`http://localhost:8082/ims-issues/resources/issues/${id}`,
+      { responseType: 'text' }
+    );
+  }
 }

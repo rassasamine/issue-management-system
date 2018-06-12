@@ -4,3 +4,8 @@ export class Comment {
     id: number;
     text: string;
 }
+
+export interface CommentInfo {
+    byUserName: string;
+    comment: Comment;
+}

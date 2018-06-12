@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { User } from '../../domain/User';
-import { Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { IssuesService } from '../../shared/issues.service';
 import { UsersService } from '../../shared/users.service';
 
@@ -20,8 +20,7 @@ export class IssueAddComponent implements OnInit {
     private router: Router,
     private issuesService: IssuesService,
     private usersService: UsersService,
-    fb: FormBuilder
-  ) {
+    fb: FormBuilder) {
       this.issueForm = fb.group({
         id: null,
         label:

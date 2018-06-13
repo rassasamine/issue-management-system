@@ -10,6 +10,18 @@ export class IssuesService {
   constructor(private http: HttpClient) { }
 
   public getAll(): Observable<Array<Issue>> {
+    return this.http.get<Array<Issue>>('/assets/issues.json');
+  }
+
+  public get(id: number): Observable<any> {
+    return this.http.get('/assets/issue.json');
+  }
+
+  public getComments(id: number): Observable<any> {
+    return this.http.get('/assets/comments.json');
+  }
+
+  /*public getAll(): Observable<Array<Issue>> {
     return this.http.get<Array<Issue>>('http://localhost:8082/ims-issues/resources/issues', {
         headers: new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('token')}`)
     });
@@ -22,7 +34,7 @@ export class IssuesService {
   public getComments(id: number): Observable<any> {
     return this.http.get(`http://localhost:8083/ims-comments/resources/comments/${id}`);
   }
-
+*/
   public addComment(id: number, comment: Comment): Observable<any> {
     return this.http.post(`http://localhost:8083/ims-comments/resources/comments/${id}`, comment ,
       { responseType: 'text' }

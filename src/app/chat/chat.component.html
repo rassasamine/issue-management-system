@@ -8,13 +8,13 @@
     <div class="time">{{chat.created | date}}</div>
   </div>
 </div>
-<form sendMsg="ngForm" (ngSubmit)="onSubmit($event)">
+<form #sendMsg="ngForm" (ngSubmit)="onSubmit($event)">
   <div class="popup-messages-footer">
 
-    <input (ngModel)="chatBox" name="chatBox" autocomplete="off" id="status_message" required placeholder="Type a message...">
+    <input [(ngModel)]="chatBox" name="chatBox" autocomplete="off" id="status_message" required placeholder="Type a message...">
 
     <button [disabled]="!sendMsg.form.valid" class="bg_none" type="submit">
-      <i class="glyphicon glyphicon-send"></i>
+      <i class="glyphicon glyphicon-send">Send</i>
     </button>
 
   </div>

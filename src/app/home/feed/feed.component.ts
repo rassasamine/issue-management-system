@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Issue } from '../../domain/Issue';
 import { Observable } from 'rxjs';
 import { IssuesService } from '../../shared/issues.service';
-import * as EventSource from 'eventsource';
 
 @Component({
   selector: 'app-feed',
@@ -32,10 +31,10 @@ export class FeedComponent implements OnInit {
   getFeedData(url): Observable<any> {
     const observable = Observable.create(observer => {
     const eventSource = new EventSource(url);
-
+/*
     eventSource.onmessage = x => observer.next(JSON.parse(x.data));
     eventSource.onerror = x => observer.error(console.log('EventSource failed'));
-
+*/
     return () => { eventSource.close(); };
     });
     return observable;

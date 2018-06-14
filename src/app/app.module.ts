@@ -18,7 +18,11 @@ import { AuthService } from './shared/auth.service';
 import { UsersService } from './shared/users.service';
 import { IssuesService } from './shared/issues.service';
 import { WebSocketService } from './shared/web-socket.service';
+import { JwtModule } from '@auth0/angular-jwt';
 
+export function tokenGetter() {
+  return localStorage.getItem('token');
+}
 
 @NgModule({
   declarations: [
@@ -35,6 +39,11 @@ import { WebSocketService } from './shared/web-socket.service';
     FormsModule,
     ReactiveFormsModule,
     IssuesModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+      }
+    })
   ],
   providers: [,
     IssuesService,

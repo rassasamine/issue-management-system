@@ -4,8 +4,8 @@
     <h4 class="title">Issue Management System</h4>
   </div>
   <div class="user">
-    <div class="welcome">Welcome, user</div>
-    <a>Logout</a>
+    <div class="welcome" *ngIf="authService.authenticated && authService.currentUser">Welcome, {{authService.currentUser.name}}</div>
+    <a (click)="authService.logout()" *ngIf="authService.authenticated">Logout</a>
   </div>
 </header>
 <main>
@@ -20,7 +20,7 @@
     </ul>
     <div>
       <div class="chat-container">
-        <app-chat></app-chat>
+        <app-chat *ngIf="authService.authenticated"></app-chat>
       </div>
     </div>
   </nav>

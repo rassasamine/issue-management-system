@@ -9,16 +9,12 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable()
 export class AuthService {
-  private BASE_URL = 'http://localhost:8081/ims-users/resources';
+  private BASE_URL = 'http://localhost:3000';
   private user: User;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private jwtHelper: JwtHelperService, private http: HttpClient, private router: Router) { }
 
-  public get authenticated(): boolean {
-    return true;
-  }
 
-/*
   public get authenticated(): boolean {
     const token = this.jwtHelper.tokenGetter();
     if (token) {
@@ -27,7 +23,7 @@ export class AuthService {
     }
     return false;
   }
-*/
+
   public login(userCreds: Credential) {
     const url = `${this.BASE_URL}/users/authenticate`;
     return this.http.post(url, userCreds,

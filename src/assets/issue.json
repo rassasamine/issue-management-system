@@ -1,4 +1,5 @@
-{
+[
+    {
     "assignedTo": {
         "id": 1,
         "name": "marcus"
@@ -7,4 +8,5 @@
     "description": "Bug A is critical for product",
     "id": 1,
     "label": "Fix Bug A"
-}
+    }
+]
